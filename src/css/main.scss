@@ -7,7 +7,448 @@
 // Uncomment for full screen (including immersive article main media)
 //@import "fullscreen";
 
+$grey:#dbdbdb;
+$grey-two:#f6f6f6;
+$grey-three:#767676;
+$pink:#f7acbb;
+$purple:#B72166;
+
+$padding-wide: 100px;
+
+header {
+  display: none;
+}
+
 .element-atom,
 .interactive-atom {
     margin: 0 !important;
 }
+
+h1 {
+  font-family: $f-serif-headline;
+  font-weight: 200;
+  font-size: 38px;
+  line-height: 38px;
+
+
+  @include mq($from: desktop) {
+    font-size: 48px;
+    line-height: 48px;
+  }
+}
+
+h2 {
+  font-family: $f-serif-headline;
+  font-weight: 900;
+  line-height: 28px;
+}
+
+.circle-button {
+  font-family: $f-serif-headline;
+  font-weight: 900;
+  line-height: 30px;
+
+  .circle {
+    width: 30px;
+    height: 30px;
+    border: 1px solid $grey;
+    content: '';
+    display: block;
+    float: left;
+    border-radius: 50%;
+    margin-right: 10px;
+
+    svg{
+      width: 60%;
+      display: block;
+      margin-left: auto;
+      margin-right: auto;
+      margin-top: -1px;
+    }
+  }
+}
+
+//image
+
+.recipe__image {
+  opacity: 0;
+  // transition: opacity 1s cubic-bezier(1,0,.5,1);
+  &--wrapper {
+    @include mq($from:desktop) {
+      height: 100vh;
+      min-height: 600px;
+      position: fixed;
+      width: 40%;
+    }
+    @include mq($from: wide){
+      width: 45%;
+    }
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+
+      @include mq($from: desktop){
+        position: absolute;
+      }
+    }
+  }
+  &.fadeIn,
+  &.fadeOut {
+    animation-delay: 0.5s;
+    animation-duration: 0.5s;
+    animation-fill-mode: forwards;
+    animation-iteration-count: 1;
+  }
+  &.fadeIn {
+    z-index: 200;
+    animation-name: fadeIn;
+  }
+  &.fadeOut {
+    z-index: 100;
+    animation-name: fadeOut;
+  }
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+@keyframes fadeOut {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+//article
+
+.recipe__article {
+  padding:0 12px;
+  padding-bottom: 44px;
+
+  @include mq($from: desktop){
+    padding: 0 0 0 100px;
+    padding-left: 100px;
+  }
+
+  &--line {
+    display: block;
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    border: 1px solid $grey;
+    margin-left: -20px;
+  }
+
+  &--wrapper {
+    @include mq($from: desktop){
+    width: 60%;
+    float: right;
+    }
+
+    @include mq($from: wide) {
+      width: 55%;
+    }
+  }
+
+  &--headline, &--content {
+
+    @include mq($from: desktop){
+      margin-left: auto;
+      margin-right: auto;
+    }
+  }
+
+  &--contributor {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    float: left;
+    margin-right: 12px;
+
+    @include mq($from: desktop){
+      margin-left: -90px;
+      position: fixed;
+    }
+  }
+
+  &--headline {
+    margin-top: 6px;
+    margin-bottom: 24px;
+
+    @include mq($from: desktop){
+      margin-bottom: 60px;
+      margin-top: 20px;
+
+      h1{
+        padding-right: 50px;
+      }
+    }
+
+    @include mq($from: wide) {
+      h1{
+        padding-right: $padding-wide;
+      }
+    }
+
+    h2 {
+      color: $purple;
+    }
+  }
+
+  &--content {
+    padding-top: 6px;
+    border-top: 1px solid $grey;
+
+    & > p {
+      display: none;
+    }
+
+    p {
+      font-size: 18px;
+
+      @include mq($from: desktop) {
+        padding-right: 50px;
+      }
+
+      @include mq($from: wide){
+        padding-right: $padding-wide;
+      }
+      &:nth-child(-n+3) {
+        display: block;
+      }
+      @include mq($from: desktop){
+        //n + magic shows first 3 para's
+        &:nth-child(-n+2) {
+          display: block;
+        }
+      }
+    }
+  }
+  &--next-recipe{
+    opacity: 0;
+    position: fixed;
+    bottom: 0px;
+    transition: opacity 0.5s ease-in-out;
+
+    @include mq($from: desktop) {
+    margin-left: 82px;
+    color: $grey-three;
+    // color: white;
+    }
+      .kicker {
+        color: $purple;
+
+        &:after {
+          content: '/';
+          color: rgba(51,51,51,0.2);
+          // color: rgba(255,255,255,0.5);
+        }
+      }
+      &.visible {
+        opacity: 1;
+      }
+  }
+  &--next-button {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    float: left;
+    border: 1px solid lighten(#333, 50%);
+    margin-left: 12px;
+    margin-right: 12px;
+    margin-top: 6px;
+    z-index: 200;
+    position: relative;
+    margin-bottom: 12px;
+    transition: transform 0.5s ease-in-out;
+
+    @include mq($from: desktop) {
+    width: 60px;
+    height: 60px;
+    float: left;
+    border: 1px solid $grey;
+    margin-left: -72px;
+    }
+
+      svg {
+        width: 60%;
+        display: block;
+        margin-top: 5px;
+        margin-left: auto;
+        margin-right: auto;
+
+        @include mq($from: desktop){
+          margin-top: 10px;
+        }
+      }
+
+      &.top {
+        transform: rotate(180deg);
+      }
+  }
+
+  &--next-text {
+    position: inherit;
+    bottom: 0px;
+    padding-left: 15%;
+    padding-right: 4%;
+    background-color: $grey;
+    padding-bottom: 12px;
+    padding-top: 6px;
+    transform: translateY(100%);
+    transition: transform 0.5s ease-in-out;
+
+    &.visible{
+      transform: translateY(0%);
+    }
+
+    h2 {
+      font-size: 18px;
+      line-height: 18px;
+    }
+    // background-color: $purple;
+    @include mq($from: desktop) {
+      background-color: #fff;
+      width: 99%;
+      padding-left: 1%;
+      padding-bottom: 14px;
+      h2 {
+        font-size: 22px;
+        line-height: 24px;
+      }
+    }
+  }
+
+  //start structure recipe
+  &--structured {
+    margin-top: 36px;
+    border-top: 4px solid $grey;
+    padding-top: 8px;
+
+    @include mq($from: desktop) {
+      margin-top: 50px;
+    }
+  .structured-meta {
+    font-family: $f-serif-headline;
+    font-size: 16px;
+    font-weight: 900;
+  }
+
+  .meta-circle {
+    border: 1px solid $purple;
+    width: 30px;
+    height: 27px;
+    display: inline-block;
+    border-radius: 50%;
+    margin-right: 6px;
+    text-align: center;
+    padding-top: 3px;
+    color: $purple;
+
+    &:nth-child(2) {
+      margin-left: 12px;
+    }
+  }
+  }
+
+  &--structured-image {
+    img {
+      width: 100%;
+      margin-top: -8px;
+    }
+    margin-bottom: 12px;
+  }
+
+  &--structured-headline {
+    margin-bottom: 24px;
+
+    @include mq($from: wide){
+      h1 {
+        padding-right: $padding-wide;
+      }
+    }
+  }
+
+  &--structured-meta {
+    margin-bottom: 8px;
+  }
+
+  &--structured-ingredients {
+    margin-bottom: 24px;
+    margin-top: 18px;
+
+    @include mq($from: desktop){
+      -webkit-columns:2;
+      padding-right: 50px;
+    }
+
+    @include mq($from: wide) {
+      padding-right: $padding-wide;
+    }
+
+    ul {
+      -webkit-column-break-inside: avoid;
+      page-break-inside: avoid;
+      break-inside: avoid;
+      margin-top: -6px !important;
+    }
+  }
+
+  .ingredients-list, .method-list {
+    margin: 0px;
+    padding: 0px;
+    list-style: none;
+  }
+
+  .ingredients-list {
+    li:not(.ingredients-title) {
+      font-family: $f-sans-serif-text;
+      font-size: 14px;
+      border-top: 1px solid $grey;
+      margin-bottom: 6px;
+    }
+  }
+
+  .ingredients-title {
+    border-top: 4px solid $purple;
+    font-family: $f-serif-headline;
+    font-weight: 900;
+    color: $purple;
+    margin-bottom: 12px;
+  }
+
+  .method-list {
+    margin-bottom: 24px;
+
+    @include mq($from: desktop) {
+      padding-right: 50px;
+    }
+
+    @include mq($from: wide) {
+      padding-right: $padding-wide;
+    }
+
+    li {
+      border-top: 1px solid $grey;
+      margin-bottom: 24px;
+    }
+    .number {
+      font-size: 48px;
+      font-family: $f-serif-headline;
+      font-weight: 200;
+      float: left;
+      line-height:0px;
+      margin-top: 26px;
+      margin-right: 12px;
+      color: $purple;
+    }
+  }
+} //end recipe__article
