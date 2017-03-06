@@ -31,7 +31,7 @@ h1 {
   line-height: 38px;
 
 
-  @include mq($from: desktop) {
+  @include mq($from: tablet) {
     font-size: 48px;
     line-height: 48px;
   }
@@ -58,6 +58,10 @@ h2 {
     border-radius: 50%;
     margin-right: 10px;
 
+    .visible & {
+      transform: rotate(45deg);
+    }
+
     svg{
       width: 60%;
       display: block;
@@ -74,7 +78,10 @@ h2 {
   opacity: 0;
   // transition: opacity 1s cubic-bezier(1,0,.5,1);
   &--wrapper {
-    @include mq($from:desktop) {
+    position: relative;
+    overflow: hidden;
+
+    @include mq($from:tablet) {
       height: 100vh;
       min-height: 600px;
       position: fixed;
@@ -89,7 +96,7 @@ h2 {
       height: 100%;
       object-fit: cover;
 
-      @include mq($from: desktop){
+      @include mq($from: tablet){
         position: absolute;
       }
     }
@@ -127,13 +134,32 @@ h2 {
     opacity: 0;
   }
 }
-//article
 
+.recipe__label {
+  position: absolute;
+  z-index: 300;
+  background-color: $purple;
+  height: 90px;
+  width: 160px;
+  border-radius: 50%;
+  text-align: center;
+  padding-top: 70px;
+  color: white;
+  left: 1px;
+  bottom: -40px;
+
+  @include mq($from: tablet) {
+    top: -50px;
+    left: 20px;
+  }
+}
+
+//article
 .recipe__article {
   padding:0 12px;
   padding-bottom: 44px;
 
-  @include mq($from: desktop){
+  @include mq($from: tablet){
     padding: 0 0 0 100px;
     padding-left: 100px;
   }
@@ -145,10 +171,15 @@ h2 {
     bottom: 0;
     border: 1px solid $grey;
     margin-left: -20px;
+    display: none;
+
+    @include mq($from: tablet){
+      display: block;
+    }
   }
 
   &--wrapper {
-    @include mq($from: desktop){
+    @include mq($from: tablet){
     width: 60%;
     float: right;
     }
@@ -160,7 +191,7 @@ h2 {
 
   &--headline, &--content {
 
-    @include mq($from: desktop){
+    @include mq($from: tablet){
       margin-left: auto;
       margin-right: auto;
     }
@@ -173,9 +204,23 @@ h2 {
     float: left;
     margin-right: 12px;
 
-    @include mq($from: desktop){
-      margin-left: -90px;
-      position: fixed;
+    &.mobile {
+      display: block;
+      height: 52px;
+      width: 52px;
+      background-position: center top;
+      @include mq($from: tablet) {
+        display: none;
+      }
+    }
+
+    &.desktop{
+      display: none;
+      @include mq($from: tablet){
+        margin-left: -90px;
+        position: fixed;
+        display: block;
+      }
     }
   }
 
@@ -183,7 +228,7 @@ h2 {
     margin-top: 6px;
     margin-bottom: 24px;
 
-    @include mq($from: desktop){
+    @include mq($from: tablet){
       margin-bottom: 60px;
       margin-top: 20px;
 
@@ -207,6 +252,12 @@ h2 {
     padding-top: 6px;
     border-top: 1px solid $grey;
 
+    &.visible {
+      & > p {
+        display: block;
+      }
+    }
+
     & > p {
       display: none;
     }
@@ -214,7 +265,7 @@ h2 {
     p {
       font-size: 18px;
 
-      @include mq($from: desktop) {
+      @include mq($from: tablet) {
         padding-right: 50px;
       }
 
@@ -224,7 +275,7 @@ h2 {
       &:nth-child(-n+3) {
         display: block;
       }
-      @include mq($from: desktop){
+      @include mq($from: tablet){
         //n + magic shows first 3 para's
         &:nth-child(-n+2) {
           display: block;
@@ -238,7 +289,8 @@ h2 {
     bottom: 0px;
     transition: opacity 0.5s ease-in-out;
 
-    @include mq($from: desktop) {
+    @include mq($from: tablet) {
+    opacity: 1;
     margin-left: 82px;
     color: $grey-three;
     // color: white;
@@ -270,7 +322,7 @@ h2 {
     margin-bottom: 12px;
     transition: transform 0.5s ease-in-out;
 
-    @include mq($from: desktop) {
+    @include mq($from: tablet) {
     width: 60px;
     height: 60px;
     float: left;
@@ -285,7 +337,7 @@ h2 {
         margin-left: auto;
         margin-right: auto;
 
-        @include mq($from: desktop){
+        @include mq($from: tablet){
           margin-top: 10px;
         }
       }
@@ -315,7 +367,7 @@ h2 {
       line-height: 18px;
     }
     // background-color: $purple;
-    @include mq($from: desktop) {
+    @include mq($from: tablet) {
       background-color: #fff;
       width: 99%;
       padding-left: 1%;
@@ -333,7 +385,7 @@ h2 {
     border-top: 4px solid $grey;
     padding-top: 8px;
 
-    @include mq($from: desktop) {
+    @include mq($from: tablet) {
       margin-top: 50px;
     }
   .structured-meta {
@@ -385,7 +437,7 @@ h2 {
     margin-bottom: 24px;
     margin-top: 18px;
 
-    @include mq($from: desktop){
+    @include mq($from: tablet){
       -webkit-columns:2;
       padding-right: 50px;
     }
@@ -409,6 +461,11 @@ h2 {
   }
 
   .ingredients-list {
+
+    @include mq($until: tablet) {
+      margin-top: 12px !important;
+    }
+
     li:not(.ingredients-title) {
       font-family: $f-sans-serif-text;
       font-size: 14px;
@@ -428,7 +485,7 @@ h2 {
   .method-list {
     margin-bottom: 24px;
 
-    @include mq($from: desktop) {
+    @include mq($from: tablet) {
       padding-right: 50px;
     }
 
@@ -451,4 +508,139 @@ h2 {
       color: $purple;
     }
   }
+
+  &--onward {
+    background-color: lighten(#F7ACBB, 15%);
+    overflow: hidden;
+
+    @include mq($from: tablet) {
+      margin-left: 80px;
+    }
+  }
+
+  &--onward-card {
+
+    @include mq($from: tablet) {
+      float: left;
+    }
+
+    &.large{
+      margin-bottom: 12px;
+
+      @include mq($from: tablet) {
+        width: 45%;
+        border-right: 1px solid $grey;
+        margin-right: 10px;
+        padding-right: 10px;
+      }
+
+      img {
+        width: 100%;
+      }
+
+      h1{
+        padding-left: 12px;
+        padding-right: 12px;
+        font-size: 24px;
+        line-height: 28px;
+        margin-top: 6px;
+      }
+    }
+
+    &.small {
+      margin-bottom: 20px;
+      width: 41%;
+      float: left;
+      border-right: 1px solid $grey;
+      padding-right: 12px;
+      margin-left: 12px;
+
+      &:nth-child(4){
+        border: none;
+      }
+
+      @include mq($from: tablet) {
+        width: 50%;
+        border-right: none;
+        border-bottom: 1px solid $grey;
+        padding-bottom: 12px;
+        margin-left: 0px;
+      }
+
+
+      img{
+        float: left;
+        width: 100%;
+        @include mq($from: tablet) {
+          width: 36%;
+        }
+      }
+
+      h1{
+        font-size: 18px;
+        line-height: 20px;
+        margin-top: 6px;
+
+        @include mq($from: tablet) {
+          float: left;
+          width: 60%;
+          margin-left: 12px;
+          margin-top: 0px;
+        }
+      }
+    }
+  }
+
+  &--onward-title {
+    margin-bottom: 24px;
+    border-bottom: 1px solid $grey;
+    padding-left: 12px;
+  }
+
+  &--onward-more {
+    padding-left: 12px;
+    background-color: lighten(#F7ACBB, 15%);
+    padding-bottom: 12px;
+    border-top: 1px solid $grey;
+    padding-top: 6px;
+
+    @include mq($from: tablet) {
+      margin-left: 80px;
+      padding-bottom: 60px;
+    }
+  }
 } //end recipe__article
+.ad-wrapper {
+  background-color: $grey-two;
+  margin-left: -20px;
+  margin-top: 20px;
+  padding-top: 6px;
+  padding-bottom: 6px;
+
+  .ad-container{
+    margin-left: auto;
+    margin-right: auto;
+    width: max-content;
+  }
+}
+
+
+.ad-container--mobile {
+  display: block;
+
+  @include mq($from: tablet) {
+    display: none;
+  }
+}
+
+.ad-container {
+  display: none;
+
+  @include mq($from: desktop) {
+    display: block;
+  }
+}
+
+#bannerandheader {
+  display: none !important;
+}
